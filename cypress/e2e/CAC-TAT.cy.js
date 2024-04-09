@@ -4,19 +4,19 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     beforeEach(function(){
         cy.visit('./src/index.html')
     })
-    it('verifica o título da aplicação', function() {
+    it('Verifica o título da aplicação', function() {
         
         cy.title('').should('be.equals', 'Central de Atendimento ao Cliente TAT')
     })
 //Caminho feliz
-    it('preencher os campos obrigatórios e envia o formulario', function(){
+    it('Preencher os campos obrigatórios e envia o formulario', function(){
         const escreverComentario = 'Teste curso Cypress com Java Script que esta sendo feito por jucicleber um grande programador de testes automatizados, muito massa...'
         cy.get('#firstName').type('Creber')
         cy.get('#lastName').type('Silva')
         cy.get('#email').type('creber.silva@yahoo.com')
         cy.get('#phone').type('65999990000')
         cy.get('#open-text-area').type(escreverComentario, {delay: 0})
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
         //Mensagem de sucesso...
         cy.get('.success').should('be.visible')
     })
@@ -28,11 +28,11 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#email').type('creber.silva@yahoo,com')
         cy.get('#phone').type('65999990000')
         cy.get('#open-text-area').type('teste')
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
         //Mensagem de erro...
         cy.get('.error').should('be.visible')
     })
-    it('campo telefone continua vazio quando preenchido com valor não-numérico', function(){
+    it('Campo telefone continua vazio quando preenchido com valor não-numérico', function(){
        //inserindo um texto no campo telefone que só aceita, atravez de uma função
        //assim vazio por nãol ter número, depois o should valida que o campo esta vazio
        cy.get('#phone')
@@ -47,9 +47,59 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.get('#phone-checkbox').click()
         cy.get('#open-text-area').type('teste')
         //quando clica no botão mostra o erro
-        cy.get('button[type="submit"]').click()
+        cy.contains('button','Enviar').click()
+        //Mensagem de erro...
+        cy.get('.error').should('be.visible')
+    })
+    it('Preenche e limpa os campos nome, sobrenome, email e telefone', function(){
+        cy.get('#firstName')
+            .type('Creber')
+            .should('have.value', 'Creber')
+            .clear()
+            .should('have.value', '')
+        cy.get('#lastName')
+            .type('Silva')
+            .should('have.value', 'Silva')
+            .clear()
+            .should('have.value', '')
+        cy.get('#email')
+            .type('creber.silva@yahoo.com')
+            .should('have.value', 'creber.silva@yahoo.com')
+            .clear()
+            .should('have.value', '')
+        cy.get('#phone')
+            .type('65999990000')
+            .should('have.value', '65999990000')
+            .clear()
+            .should('have.value', '')
+    })
+    it('Exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function(){
+        cy.contains('button','Enviar').click()
         //Mensagem de erro...
         cy.get('.error').should('be.visible')
     })
 
+    it('Envia o formulario com sucesso usando um comando customizado', function(){
+        cy.fillMandatoryFieldAndSubmit()
+        cy.get('.success').should('be.visible')
+    })
+    it('Selecione um produto (YouTube) por seu texto', function(){
+        cy.get('#product')
+        //selecioando YouTube pelo texto na tela
+            .select('YouTube')
+            .should('have.value','youtube')
+    })
+    it('Selecione um produto (Mentoria) por seu valor (value)', function(){
+        cy.get('#product')
+        //esta pegando pelo value no caso mentoria com letra minuscula
+            .select('mentoria')
+            .should('have.value','mentoria')
+    })
+    it.only('selecione um produto (Blog) por seu indice', function(){
+        cy.get('#product')
+        //selecione é o 0 indice é 1
+            .select(1)
+            //averiguando pelo value
+            .should('have.value','blog')
+    })
 })
