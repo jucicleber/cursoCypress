@@ -1,5 +1,3 @@
-
-# teste ponta a ponta via git
 name: End-to-end tests
 on: [push]
 jobs: 
