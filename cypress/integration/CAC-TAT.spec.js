@@ -8,7 +8,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title().should('be.equals', 'Central de Atendimento ao Cliente TAT')
     })
 
-    it.only('Preencher os campos obrigatórios e envia o formulário', function() {
+    it('Preencher os campos obrigatórios e envia o formulário', function() {
         const escreverComentario = 'Teste curso Cypress com JavaScript que está sendo feito por jucicleber, um grande programador de testes automatizados, muito massa...'
 
         cy.clock()
