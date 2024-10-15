@@ -11,10 +11,17 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         
         cy.title('').should('be.equals', 'Central de Atendimento ao Cliente TAT')
     })
+<<<<<<< HEAD
 //Caminho feliz
     it('Preencher os campos obrigatórios e envia o formulario', function(){
         const escreverComentario = 'Teste curso Cypress com Java Script que esta sendo feito por jucicleber um grande programador de testes automatizados, muito massa...'
          //para o tempo
+=======
+
+    it('Preencher os campos obrigatórios e envia o formulário', function() {
+        const escreverComentario = 'Teste curso Cypress com JavaScript que está sendo feito por jucicleber, um grande programador de testes automatizados, muito massa...'
+
+>>>>>>> 529749df2060141ed90fcf26ab908c7cc8130a8d
         cy.clock()
 
         cy.get('#firstName').type('Creber')
