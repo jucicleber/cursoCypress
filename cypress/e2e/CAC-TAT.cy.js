@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />///
+
 
 describe('Central de Atendimento ao Cliente TAT', function() {
     beforeEach(function(){
@@ -9,8 +9,11 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title('').should('be.equals', 'Central de Atendimento ao Cliente TAT')
     })
 //Caminho feliz
-    it('Preencher os campos obrigatórios e envia o formulario', function(){
+    it.only('Preencher os campos obrigatórios e envia o formulario', function(){
         const escreverComentario = 'Teste curso Cypress com Java Script que esta sendo feito por jucicleber um grande programador de testes automatizados, muito massa...'
+
+        cy.clock()
+
         cy.get('#firstName').type('Creber')
         cy.get('#lastName').type('Silva')
         cy.get('#email').type('creber.silva@yahoo.com')
@@ -19,6 +22,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.contains('button','Enviar').click()
         //Mensagem de sucesso...
         cy.get('.success').should('be.visible')
+        //para o tempo
+        cy.tick(3000)
+        cy.get('.success').should('not.be.visible')
+
     })
 //Email inválido
     it('Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function(){

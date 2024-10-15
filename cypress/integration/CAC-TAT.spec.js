@@ -8,15 +8,23 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         cy.title().should('be.equals', 'Central de Atendimento ao Cliente TAT')
     })
 
-    it('Preencher os campos obrigatórios e envia o formulário', function() {
+    it.only('Preencher os campos obrigatórios e envia o formulário', function() {
         const escreverComentario = 'Teste curso Cypress com JavaScript que está sendo feito por jucicleber, um grande programador de testes automatizados, muito massa...'
+
+        cy.clock()
+
         cy.get('#firstName').type('Creber')
         cy.get('#lastName').type('Silva')
         cy.get('#email').type('creber.silva@yahoo.com')
         cy.get('#phone').type('65999990000')
         cy.get('#open-text-area').type(escreverComentario, { delay: 0 })
         cy.contains('button', 'Enviar').click()
-        cy.get('.success').should('be.visible')
+        //Mensagem de sucesso...
+         cy.get('.success').should('be.visible')
+         //para o tempo
+         cy.tick(3000)
+         cy.get('.success').should('not.be.visible')
+ 
     })
 
     it('Exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function() {
