@@ -1,5 +1,3 @@
-
-
 describe('Central de Atendimento ao Cliente TAT', function() {
 
     const converte3000MiliSegundosEmVariavel = 3000
@@ -11,17 +9,10 @@ describe('Central de Atendimento ao Cliente TAT', function() {
         
         cy.title('').should('be.equals', 'Central de Atendimento ao Cliente TAT')
     })
-<<<<<<< HEAD
 //Caminho feliz
     it('Preencher os campos obrigatórios e envia o formulario', function(){
         const escreverComentario = 'Teste curso Cypress com Java Script que esta sendo feito por jucicleber um grande programador de testes automatizados, muito massa...'
          //para o tempo
-=======
-
-    it('Preencher os campos obrigatórios e envia o formulário', function() {
-        const escreverComentario = 'Teste curso Cypress com JavaScript que está sendo feito por jucicleber, um grande programador de testes automatizados, muito massa...'
-
->>>>>>> 529749df2060141ed90fcf26ab908c7cc8130a8d
         cy.clock()
 
         cy.get('#firstName').type('Creber')
@@ -57,13 +48,17 @@ describe('Central de Atendimento ao Cliente TAT', function() {
 
         cy.get('.success').should('not.be.visible')
     })
-    it('Campo telefone continua vazio quando preenchido com valor não-numérico', function(){
-       //inserindo um texto no campo telefone que só aceita, atravez de uma função
-       //assim vazio por não ter número, depois o should valida que o campo esta vazio
-       cy.get('#phone')
-        .type('aaaaaaaaa')
-        .should('have.value', '')
+
+    Cypress._.times(3, function() {
+        it.only('Campo telefone continua vazio quando preenchido com valor não-numérico', function(){
+            //inserindo um texto no campo telefone que só aceita, atravez de uma função
+            //assim vazio por não ter número, depois o should valida que o campo esta vazio
+            cy.get('#phone')
+             .type('aaaaaaaaa')
+             .should('have.value', '')
+         })
     })
+
     it('Exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido', function(){
 
         cy.clock()
