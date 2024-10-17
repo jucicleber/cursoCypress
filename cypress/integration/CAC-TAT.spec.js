@@ -50,7 +50,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     Cypress._.times(3, function() {
-        it.only('Campo telefone continua vazio quando preenchido com valor não-numérico', function(){
+        it('Campo telefone continua vazio quando preenchido com valor não-numérico', function(){
             //inserindo um texto no campo telefone que só aceita, atravez de uma função
             //assim vazio por não ter número, depois o should valida que o campo esta vazio
             cy.get('#phone')
@@ -149,4 +149,27 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             expect($input[0].files[0].name).to.equal('example.json')
         })
     })
+    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+       cy.get('.success')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain','Mensagem enviada com sucesso.')
+        .invoke('hide')
+        .should('not.be.visible')
+       cy.get('.error')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain','Valide os campos obrigatórios!')
+        .invoke('hide')
+        .should('not.be.visible')
+    })
+    it.only('preenche a area de texto usando o comando invoke errado', function(){
+        const longText = Cypress._.repeat('0123456789',30)
+
+        cy.get('#open-text-area')
+         .invoke('val',longText)
+         .should('have.value', longText)
+    })    
 })
